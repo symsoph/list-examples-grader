@@ -24,10 +24,10 @@ fi
 
 java -cp $CPATH2 org.junit.runner.JUnitCore TestListExamples > test_results.txt
 
-tail -n 2 test_results.txt > last_line.txt
-cut -d " " -f 3,6 last_line.txt > last_line_shorter.txt
-TESTS_RUN=`cut -d "," -f 1 last_line_shorter.txt`
-TESTS_FAILED=`cut -d "," -f 2 last_line_shorter.txt`
+head -n 2 test_results.txt > first.txt
+tail -n 1 first.txt > line.txt
+TESTS_RUN=`grep -c "." line.txt`
+TESTS_FAILED=`grep -c "E" line.txt`
 TESTS_PASSED=$(( $TESTS_RUN - $TESTS_FAILED ))
 
 echo "You passed" $TESTS_PASSED / $TESTS_RUN "tests"
